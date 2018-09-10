@@ -1,0 +1,25 @@
+div.inicio {
+  text-align: center;
+  align-items: center;
+  margin-top: 200px;
+}
+
+.App-logo {
+  animation: esperar 4s;
+  height: 200px;
+}
+
+.App-title {
+  animation: esperar 4s;
+  font-size: 1.5em;
+}
+
+body {
+  background-color: #D83438;
+  color: white;
+}
+
+@keyframes esperar {
+  from { opacity: 0;}
+  to { opacity: 1; }
+}
