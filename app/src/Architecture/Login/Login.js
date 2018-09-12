@@ -16,7 +16,7 @@ class Login extends Component {
   }
 
   CambiarColorStyles = (event) => {
-    if (this.state.bool == 1) {
+    if (this.state.bool === 1) {
       this.setState({color: 'blue', bool: 0});
 
     }else {
