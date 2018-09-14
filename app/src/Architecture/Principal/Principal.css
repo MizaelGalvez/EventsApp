@@ -1,20 +1,15 @@
-.Home {
+.Principal {
+  animation: Login-logo-rigth 1s;
   text-align: center;
   align-items: center;
   margin-top: 200px;
+  background-color: white;
+  margin: 30px;
+  padding-top: 600px;
 }
 
-.Home-logo {
-  animation: esperar 4s;
-  height: 200px;
-}
 
-.Home-title {
-  animation: esperar 4s;
-  font-size: 1.5em;
-}
-
-@keyframes esperar {
-  from { opacity: 0;}
-  to { opacity: 1; }
+@keyframes Login-logo-rigth {
+  from { transform: translateX(-30px)}
+  to { transform: translateX(0) }
 }

@@ -1,0 +1,20 @@
+.Home {
+  text-align: center;
+  align-items: center;
+  margin-top: 200px;
+}
+
+.Home-logo {
+  animation: esperar 4s;
+  height: 200px;
+}
+
+.Home-title {
+  animation: esperar 4s;
+  font-size: 1.5em;
+}
+
+@keyframes esperar {
+  from { opacity: 0;}
+  to { opacity: 1; }
+}
