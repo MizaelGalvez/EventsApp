@@ -47,19 +47,16 @@ class App extends Component {
 
   ContenidoInicio = (event) => {
       Contenido = Inicio;
-      this.forceUpdate();
   }
   ContenidoLogin = (event) => {
       Contenido = Login;
-      this.forceUpdate();
   }
   ContenidoPrincipal = (event) => {
       Contenido = Principal;
-      this.forceUpdate();
+      this.setState({Usuario: 'activo'});
   }
   ContenidoCamara = (event) => {
      Contenido = Camara;
-     this.forceUpdate();
   }
 
 
