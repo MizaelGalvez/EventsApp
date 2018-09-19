@@ -1,11 +1,42 @@
 .Principal {
   animation: Login-logo-rigth 1s;
+  background-color: white;
   text-align: center;
   align-items: center;
-  margin-top: 200px;
-  background-color: white;
+  margin: 0px;
+  padding-bottom: 30px;
+}
+
+.QRimagen {
+  animation: esperar 1s;
+  height: 200px;
+  margin: 20px;
+}
+
+.BotonEscanear{
+  margin: 10px;
+  border-radius: 10px;
+  padding: 5px;
+  background-color: #7be330;
+}
+
+.h3 {
+  display: inline-block;
+  margin: 15px;
+  padding: 5px;
+  color: #00b0e7;
+}
+
+.Cantidades {
+  color: #559428;
+}
+
+.BottonDatos {
+  color: #4d4d4d;
+  background-color: #d1be13;
   margin: 30px;
-  padding-top: 600px;
+  padding: 10px;
+  border-radius: 15px;
 }
 
 
