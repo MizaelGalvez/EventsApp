@@ -7,13 +7,14 @@ import './App.css';
 import Inicio from './Inicio/Inicio';
 import Login from './Login/Login';
 import Principal from './Principal/Principal';
-import Camara from './Camara/Camara';
+import Datos from './Datos/Datos';
 import reducer from './Reducers/AccionesAPP'
 
 let Contenido = Inicio;
 
 const initialState = {
   UserValidation:'null',
+  View:'Home',
 }
 const store = createStore(
   reducer,
@@ -39,7 +40,8 @@ class App extends Component {
   }
 
   Actualizar(){
-    console.log('logica de Muestra');
+    console.log(store.state.View);
+
     this.ContenidoPrincipal()
   }
 
@@ -55,8 +57,8 @@ class App extends Component {
       Contenido = Principal;
       this.setState({Usuario: 'activo'});
   }
-  ContenidoCamara = (event) => {
-     Contenido = Camara;
+  ContenidoDatos = (event) => {
+     Contenido = Datos;
   }
 
 
