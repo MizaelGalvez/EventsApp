@@ -40,7 +40,7 @@ class App extends Component {
   }
 
   Actualizar(){
-    console.log(store.state.View);
+    
 
     this.ContenidoPrincipal()
   }
