@@ -1,4 +1,7 @@
 .Principal {
+
+  display: flex;
+  flex-direction: column;
   animation: Login-logo-rigth 1s;
   background-color: white;
   text-align: center;
@@ -20,6 +23,35 @@
   background-color: #7be330;
 }
 
+.div_boton{
+  margin-left: 138px;
+}
+
+.BotonEscanear {
+  display: flex;
+  visibility: hidden;
+  width: 0;
+}
+.BotonEscanear::before {
+  content: 'Escanear Codigo QR';
+  background: -webkit-linear-gradient(top, #7BE330, #7BE330);
+  border: 1px solid #999;
+  border-radius: 5px;
+  padding: 8px 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 20px;
+  visibility: visible;
+  position: absolute;
+}
+.BotonEscanear:hover::before {
+  border-color: black;
+}
+.BotonEscanear:active::before {
+  background: -webkit-linear-gradient(top, #7BE330, #7BE330);
+}
+
+
 .h3 {
   display: inline-block;
   margin: 15px;
@@ -37,6 +69,10 @@
   margin: 30px;
   padding: 10px;
   border-radius: 15px;
+  cursor: pointer;
+}
+.BottonDatos:hover {
+  background-color: #d1ce16;
 }
 
 

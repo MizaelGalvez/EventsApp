@@ -1,0 +1,36 @@
+div.Navegacion {
+  display: flex;
+  margin-top: 0;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Navegacion-logo {
+  height: 20px;
+  padding: 10px;
+}
+
+.Navegacion-title {
+  font-size: 0.6em;
+  margin-right: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+.Navegacion-title:hover {
+  font-size: 0.6em;
+  margin-right: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #D83438;
+  background-color: white;
+
+}
+
+body {
+  background-color: #D83438;
+  color: white;
+}

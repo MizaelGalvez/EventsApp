@@ -5,6 +5,7 @@
   "dependencies": {
     "@sensorfactdev/qr-code-scanner": "^1.0.10",
     "ajv": "^6.5.3",
+    "firebase": "^5.5.2",
     "instascan-last": "^2.1.4",
     "react": "^16.5.0",
     "react-camera": "^0.1.3",

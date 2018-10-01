@@ -1,40 +1,45 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import Navegacion from '../Navegacion/Navegacion';
 
-class Camara extends Component {
+import './Datos.css';
+
+
+let Nav = Navegacion;
+
+class Datos extends Component {
 
 
   render() {
     return (
-      <div style={style.container}>
-        <input type="file" accept="image/*" capture="camera"/>
+      <div className='root'>
+      {<Nav/>}
+          <div className='Data'>
+
+              <div className='Asistentes'>
+                <p className="asistente">Galvez Alcaraz Alejandro Mizael</p>
+                <p className="asistente">Galvez Alcaraz Alejandro Mizael</p>
+                <p className="asistente">Galvez Alcaraz Alejandro Mizael</p>
+                <p className="asistente">Galvez Alcaraz Alejandro Mizael</p>
+                <p className="asistente">Galvez Alcaraz Alejandro Mizael</p>
+                <p className="asistente">Galvez Alcaraz Alejandro Mizael</p>
+              </div>
+
+
+              <div className='Botones-datos'>
+                <a className="Data-button">Regresar</a>
+                <a className="Data-button">Descargar</a>
+              </div>
+          </div>
       </div>
     );
   }
 }
 
-const style = {
-  preview: {
-    position: 'relative',
-  },
-  captureContainer: {
-    display: 'flex',
-    position: 'absolute',
-    justifyContent: 'center',
-    zIndex: 1,
-    bottom: 0,
-    width: '100%'
-  },
-  captureButton: {
-    backgroundColor: '#fff',
-    borderRadius: '50%',
-    height: 56,
-    width: 56,
-    color: '#000',
-    margin: 20
-  },
-  captureImage: {
-    width: '100%',
+function mapStatetoProps(state, props){
+  return {
+    //enviar datos de App.js a esta Vista, si es que son necesarios
   }
-};
+}
 
-export default Camara;
+export default connect(mapStatetoProps)(Datos);

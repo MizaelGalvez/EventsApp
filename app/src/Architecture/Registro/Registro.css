@@ -1,0 +1,83 @@
+.Registro {
+  align-items: center;
+  animation: Login-logo-down 0.5s;
+  color: black;
+  text-align: center;
+  margin-top: 100px;
+  padding: 50px;
+}
+
+.contenedorRegistro {
+  background-color: white;
+  border-radius: 40px;
+  padding: 20px;
+}
+
+.Registro-logo {
+  height: 50px;
+}
+
+.Registro-header {
+  height: 80px;
+  padding: 20px;
+  color: #D83438;
+}
+
+.Registro-title {
+  font-size: 1em;
+}
+
+.BotonRegistro {
+  display: flex;
+  visibility: hidden;
+  width: 0;
+}
+.BotonRegistro::before {
+  content: 'Escanear Codigo QR';
+  background: -webkit-linear-gradient(top, #7BE330, #7BE330);
+  border: 1px solid #999;
+  border-radius: 5px;
+  padding: 8px 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 15px;
+  visibility: visible;
+  position: absolute;
+}
+.BotonRegistro:hover::before {
+  border-color: black;
+}
+.BotonRegistro:active::before {
+  background: -webkit-linear-gradient(top, #7BE330, #7BE330);
+}
+
+@keyframes Login-logo-down {
+  from { transform: translateY(-200px)}
+  to { transform: translateY(0px) }
+}
+
+.boton_personalizado{
+  cursor: pointer;
+  border-radius: 10px;
+  margin-top: 15px;
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px;
+  font-weight: 600;
+  font-size: 20px;
+  color: #ffffff;
+  background-color: #00B0E7;
+  border-radius: 6px;
+  border: 2px solid #00B0E7;
+}
+.boton_personalizado:hover{
+  cursor: pointer;
+  color: #111111;
+  background-color: #7BE330;
+  border: 2px solid #7BE330;
+}
+
+.Login-crearCuenta {
+  font-family: sans-serif;
+  color: #fffffa;
+}
