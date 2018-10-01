@@ -9,6 +9,21 @@ let Nav = Navegacion;
 
 class Datos extends Component {
 
+  BotonRegresar = (event) => {
+
+    this.props.dispatch({
+      type: 'Usuario_Registro',
+      UserValidation:'active',
+    })
+
+  }
+
+  BotonDescargar = (event) => {
+
+    alert('Pronto estara Listo')
+
+  }
+
 
   render() {
     return (
@@ -17,18 +32,12 @@ class Datos extends Component {
           <div className='Data'>
 
               <div className='Asistentes'>
-                <p className="asistente">Galvez Alcaraz Alejandro Mizael</p>
-                <p className="asistente">Galvez Alcaraz Alejandro Mizael</p>
-                <p className="asistente">Galvez Alcaraz Alejandro Mizael</p>
-                <p className="asistente">Galvez Alcaraz Alejandro Mizael</p>
-                <p className="asistente">Galvez Alcaraz Alejandro Mizael</p>
-                <p className="asistente">Galvez Alcaraz Alejandro Mizael</p>
               </div>
 
 
               <div className='Botones-datos'>
-                <a className="Data-button">Regresar</a>
-                <a className="Data-button">Descargar</a>
+                <a className="Data-button" onClick={this.BotonRegresar}>Regresar</a>
+                <a className="Data-button" onClick={this.BotonDescargar}>Descargar</a>
               </div>
           </div>
       </div>

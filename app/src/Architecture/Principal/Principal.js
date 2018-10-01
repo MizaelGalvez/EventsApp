@@ -1,13 +1,38 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import QrReader from 'react-qr-reader';
 
 import './Principal.css';
 import QRimagen from './QR.png';
 
 import Navegacion from '../Navegacion/Navegacion';
 let Nav = Navegacion;
-
 class Principal extends Component {
+
+  constructor(props){
+      super(props)
+      this.state = {
+        delay: 100,
+        result: '',
+        registros: 0,
+      }
+
+      this.handleScan = this.handleScan.bind(this)
+      this.openImageDialog = this.openImageDialog.bind(this)
+    }
+    handleScan(result){
+      if(result){
+        var registros = this.state.registros + 1;
+        this.setState({ result, registros })
+      }
+
+    }
+    handleError(err){
+      console.error(err)
+    }
+    openImageDialog() {
+      this.refs.qrReader1.openImageDialog()
+    }
 
   ActualizarDato = (event) => {
     this.props.dispatch({
@@ -17,30 +42,38 @@ class Principal extends Component {
   }
 
 
+
+
   render() {
     return (
-
       <div className='root'>
       {<Nav/>}
       <div className='Principal'>
       <img src={QRimagen} className="QRimagen" alt="MizaelDevs" />
       <div className="div_boton">
-      <input className='BotonEscanear' type="file"  accept="image/*" capture="camera"></input>
+      <p className='Cantidades'>{this.state.result}</p>
+      <input className='BotonEscanear' type="file" onClick={this.openImageDialog} />
       </div>
-      <h3 className='h3'>Registros Asistentes : <p className='Cantidades'>358</p></h3>
+      <div>
+
+      </div>
+      <h3 className='h3'>Registros Asistentes : <p className='Cantidades'>{this.state.registros}</p></h3>
       <h2 className='BottonDatos' onClick={this.ActualizarDato} >Consultar Datos</h2>
       <div></div>
       </div>
+      <QrReader
+        className="qrimage"
+        ref="qrReader1"
+        delay={this.state.delay}
+        onError={this.handleError}
+        onScan={this.handleScan}
+        legacyMode
+      />
       </div>
+
     );
   }
 }
 
 
-function mapStatetoProps(state, props){
-  return {
-    //enviar datos de App.js a esta Vista, si es que son necesarios
-  }
-}
-
-export default connect(mapStatetoProps)(Principal);
+export default connect()(Principal);

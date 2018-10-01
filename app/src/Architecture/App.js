@@ -20,6 +20,7 @@ let Nav = Navegacion;
 const initialState = {
   UserValidation:'null',
   View:'Home',
+  UserID:'',
 }
 const store = createStore(
   reducer,

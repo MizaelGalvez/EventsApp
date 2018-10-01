@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import firebase from "firebase";
+import QrReader from 'react-qr-reader';
 
 import logo from './LogoGrande.png';
 import './Registro.css';
@@ -11,11 +12,15 @@ class Registro extends Component {
     super(props);
     this.state = {email: '',
                   pass: '',
-                  Repetirpass: ''
+                  Repetirpass: '',
+                  delay: 100,
+                  result: '',
                   };
 
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleChangePass = this.handleChangePass.bind(this);
+    this.handleScan = this.handleScan.bind(this)
+    this.openImageDialog = this.openImageDialog.bind(this)
   }
 
 
@@ -32,29 +37,54 @@ class Registro extends Component {
     var password = this.state.pass;
     var confirmarPassword = this.state.Repetirpass;
 
-    if (password !== "" && password === confirmarPassword) {
+    if (this.state.result !== "") {
+      if (password !== "" && password === confirmarPassword) {
 
-      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-      // Handle Errors here.
-      //  var errorCode = error.code;
-      //var errorMessage = error.message;
-      // ...
-      })
+        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        //  var errorCode = error.code;
+        //var errorMessage = error.message;
+        // ...
+        })
 
-      alert('Registro Realizado Satisfactoriamente');
+        alert('Registro Realizado Satisfactoriamente');
 
-      this.props.dispatch({
-        type: 'Usuario_Login',
-        UserValidation:'login',
-      })
 
+        this.props.dispatch({
+          type: 'Usuario_Login',
+          UserID:this.state.result,
+        })
+
+        this.props.dispatch({
+          type: 'Usuario_Login',
+          UserValidation:'login',
+        })
+
+      }else {
+        alert('Contraseñas no Coinciden');
+      }
     }else {
-      alert('Contraseñas no Coinciden');
+      alert('Es requerido el escanear el QR');
     }
 
 
 
   }
+
+
+  handleScan(result){
+    if(result){
+      this.setState({ result })
+    }
+  }
+  handleError(err){
+    console.error(err)
+  }
+  openImageDialog() {
+    this.refs.qrReader1.openImageDialog()
+  }
+
+
 
 
   render() {
@@ -79,13 +109,22 @@ class Registro extends Component {
             </div>
 
             <div>
-              <input className='BotonRegistro' type="file"  accept="image/*" capture="camera"></input>
+              <input className='BotonRegistro' type="file"  accept="image/*" capture="camera" onClick={this.openImageDialog}></input>
+              <p>{this.state.result}</p>
             </div>
 
             <div>
               <a className="boton_personalizado" onClick={this.RealizarRegistro}>Registrarse</a>
             </div>
         </div>
+        <QrReader
+          className="qrimage"
+          ref="qrReader1"
+          delay={this.state.delay}
+          onError={this.handleError}
+          onScan={this.handleScan}
+          legacyMode
+        />
       </div>
     );
   }

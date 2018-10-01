@@ -50,7 +50,7 @@ class Login extends Component {
   VentanaRegistro = (event) => {
 
     this.props.dispatch({
-      type: 'Usuario_Registro',
+      type: 'Extender_Data',
       UserValidation:'register',
     })
 
