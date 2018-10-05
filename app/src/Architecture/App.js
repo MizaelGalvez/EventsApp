@@ -7,7 +7,6 @@ import firebase from "firebase";
 import './App.css';
 
 import Inicio from './Inicio/Inicio';
-import Navegacion from './Navegacion/Navegacion';
 import Login from './Login/Login';
 import Registro from './Registro/Registro';
 import Principal from './Principal/Principal';
@@ -15,12 +14,11 @@ import Datos from './Datos/Datos';
 import reducer from './Reducers/AccionesAPP'
 
 let Contenido = Inicio;
-let Nav = Navegacion;
 
 const initialState = {
   UserValidation:'null',
   View:'Home',
-  UserID:'',
+  qr:'',
 }
 const store = createStore(
   reducer,

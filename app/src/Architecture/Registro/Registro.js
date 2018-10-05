@@ -10,7 +10,9 @@ class Registro extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {email: '',
+    this.state = {
+                  App: 'EnCo',
+                  email: '',
                   pass: '',
                   Repetirpass: '',
                   delay: 100,
@@ -32,10 +34,12 @@ class Registro extends Component {
 
   RealizarRegistro = (event) => {
 
-
+    var App = this.state.App;
     var email = this.state.email;
     var password = this.state.pass;
     var confirmarPassword = this.state.Repetirpass;
+    var result = this.state.result;
+    var ErrorCrear = false;
 
     if (this.state.result !== "") {
       if (password !== "" && password === confirmarPassword) {
@@ -44,21 +48,51 @@ class Registro extends Component {
         // Handle Errors here.
         //  var errorCode = error.code;
         //var errorMessage = error.message;
+        ErrorCrear = true;
         // ...
-        })
+        alert('el error es : ' + error);
+      }).then(function(){
 
-        alert('Registro Realizado Satisfactoriamente');
+        if (ErrorCrear == false) {
+
+          firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            // User is signed in.
+            var displayName = user.displayName;
+            var email = user.email;
+            var emailVerified = user.emailVerified;
+            var photoURL = user.photoURL;
+            var isAnonymous = user.isAnonymous;
+            var uid = user.uid;
+            var providerData = user.providerData;
+            // ...
+          } else {
+            // User is signed out.
+            // ...
+          }
+
+          if (uid) {
+
+              firebase.database().ref(App + '/Expositores/' + uid + '/').set({
+                QRExpositor: result,
+                Contador: 0,
+              });
+              console.log(uid);
+              console.log(result);
+
+          }
+
+          });
 
 
-        this.props.dispatch({
-          type: 'Usuario_Login',
-          UserID:this.state.result,
-        })
 
-        this.props.dispatch({
-          type: 'Usuario_Login',
-          UserValidation:'login',
-        })
+        }
+
+
+      });
+
+      this.enviarLogin();
+
 
       }else {
         alert('Contraseñas no Coinciden');
@@ -69,7 +103,18 @@ class Registro extends Component {
 
 
 
-  }
+ }
+
+   enviarLogin(){
+
+     this.props.dispatch({
+       type: 'Usuario_Accion',
+       UserValidation:'login',
+
+     })
+
+   }
+
 
 
   handleScan(result){

@@ -17,7 +17,7 @@ class Navegacion extends Component {
     })
 
     this.props.dispatch({
-      type: 'Usuario_Logout',
+      type: 'Usuario_Accion',
       UserValidation:'login',
     })
 

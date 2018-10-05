@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import QrReader from 'react-qr-reader';
+import firebase from "firebase";
 
 import './Principal.css';
 import QRimagen from './QR.png';
@@ -12,10 +13,13 @@ class Principal extends Component {
   constructor(props){
       super(props)
       this.state = {
+        App: 'EnCo',
+        QRExpositor: '',
         delay: 100,
         result: '',
         registros: 0,
       }
+
 
       this.handleScan = this.handleScan.bind(this)
       this.openImageDialog = this.openImageDialog.bind(this)
@@ -23,7 +27,32 @@ class Principal extends Component {
     handleScan(result){
       if(result){
         var registros = this.state.registros + 1;
+
+
+        var App = this.state.App;
+
+        var userId = firebase.auth().currentUser.uid;
+          return firebase.database().ref(App + '/Expositores/' + userId + '/').once('value').then(function(snapshot) {
+          var qr = (snapshot.val().QRExpositor) || 'SinEscaneo';
+          var cont = (snapshot.val().Contador) || 0;
+
+
+          firebase.database().ref(App + '/Expositores/' + userId + '/Registrados').push({
+            Registro: result,
+          });
+          cont = cont + 1;
+          firebase.database().ref(App + '/Expositores/' + userId ).update({
+
+            Contador: cont,
+          });
+
+          registros = cont;
+
+
+        });
+
         this.setState({ result, registros })
+
       }
 
     }
@@ -36,7 +65,7 @@ class Principal extends Component {
 
   ActualizarDato = (event) => {
     this.props.dispatch({
-      type: 'Extender_Data',
+      type: 'Usuario_Accion',
       UserValidation:'data',
     })
   }

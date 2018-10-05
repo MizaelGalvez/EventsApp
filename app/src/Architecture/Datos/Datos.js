@@ -12,7 +12,7 @@ class Datos extends Component {
   BotonRegresar = (event) => {
 
     this.props.dispatch({
-      type: 'Usuario_Registro',
+      type: 'Usuario_Accion',
       UserValidation:'active',
     })
 

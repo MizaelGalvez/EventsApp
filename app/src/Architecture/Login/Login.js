@@ -24,6 +24,7 @@ class Login extends Component {
 
   ActualizarDato = (event) => {
 
+
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.pass).catch(function(error) {
     // Handle Errors here.
     //var errorCode = error.code;
@@ -32,11 +33,12 @@ class Login extends Component {
     //alert('el error es : ' + error);
     })
 
+
     var user = firebase.auth().currentUser;
 
     if (user) {
       this.props.dispatch({
-        type: 'Usuario_Login',
+        type: 'Usuario_Accion',
         UserValidation:'active',
       })
     } else {
@@ -44,13 +46,12 @@ class Login extends Component {
     }
 
 
-
   }
 
   VentanaRegistro = (event) => {
 
     this.props.dispatch({
-      type: 'Extender_Data',
+      type: 'Usuario_Accion',
       UserValidation:'register',
     })
 
