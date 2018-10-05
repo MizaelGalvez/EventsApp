@@ -17,41 +17,48 @@ class Principal extends Component {
         QRExpositor: '',
         delay: 100,
         result: '',
-        registros: 0,
+        registros: '',
       }
 
 
       this.handleScan = this.handleScan.bind(this)
       this.openImageDialog = this.openImageDialog.bind(this)
     }
+
+
+
     handleScan(result){
       if(result){
-        var registros = this.state.registros + 1;
+
+        var userId = firebase.auth().currentUser.uid;
+        var qr = '';
+        var cont = 1;
+        this.setState({ result: result + " Registrado" })
+        setTimeout(
+        function() {
+            this.setState({result: "" });
+        }
+        .bind(this),
+        2000);
 
 
         var App = this.state.App;
 
-        var userId = firebase.auth().currentUser.uid;
           return firebase.database().ref(App + '/Expositores/' + userId + '/').once('value').then(function(snapshot) {
-          var qr = (snapshot.val().QRExpositor) || 'SinEscaneo';
-          var cont = (snapshot.val().Contador) || 0;
+            qr = (snapshot.val().QRExpositor) || 'SinEscaneo';
+            cont = (snapshot.val().Contador) || 0;
+            cont = cont + 1;
+            alert(cont);
 
+            firebase.database().ref(App + '/Expositores/' + userId + '/Registrados').push({
+              Registro: result,
+            });
+            firebase.database().ref(App + '/Expositores/' + userId ).update({
+              Contador: cont,
+            });
 
-          firebase.database().ref(App + '/Expositores/' + userId + '/Registrados').push({
-            Registro: result,
           });
-          cont = cont + 1;
-          firebase.database().ref(App + '/Expositores/' + userId ).update({
 
-            Contador: cont,
-          });
-
-          registros = cont;
-
-
-        });
-
-        this.setState({ result, registros })
 
       }
 
@@ -62,6 +69,8 @@ class Principal extends Component {
     openImageDialog() {
       this.refs.qrReader1.openImageDialog()
     }
+
+
 
   ActualizarDato = (event) => {
     this.props.dispatch({
@@ -80,13 +89,12 @@ class Principal extends Component {
       <div className='Principal'>
       <img src={QRimagen} className="QRimagen" alt="MizaelDevs" />
       <div className="div_boton">
-      <p className='Cantidades'>{this.state.result}</p>
+      <p className='AnuncioRegistrado'>{this.state.result} </p>
       <input className='BotonEscanear' type="file" onClick={this.openImageDialog} />
       </div>
       <div>
 
       </div>
-      <h3 className='h3'>Registros Asistentes : <p className='Cantidades'>{this.state.registros}</p></h3>
       <h2 className='BottonDatos' onClick={this.ActualizarDato} >Consultar Datos</h2>
       <div></div>
       </div>

@@ -9,6 +9,14 @@
   margin: 0px;
   padding-bottom: 30px;
 }
+.AnuncioRegistrado {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  color: #559428;
+  margin-left: 15px;
+}
 
 .QRimagen {
   animation: esperar 1s;
