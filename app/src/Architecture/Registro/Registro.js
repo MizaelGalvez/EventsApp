@@ -127,6 +127,7 @@ class Registro extends Component {
   }
   openImageDialog() {
     this.refs.qrReader1.openImageDialog()
+    //<input className='BotonRegistro' type="file" onClick={this.openImageDialog}></input>
   }
 
 
@@ -154,7 +155,8 @@ class Registro extends Component {
             </div>
 
             <div>
-              <input className='BotonRegistro' type="file"  accept="image/*" capture="camera" onClick={this.openImageDialog}></input>
+              <a className="boton_personalizado_escanear" onClick={this.openImageDialog}>Escanear</a>
+
               <p>{this.state.result}</p>
             </div>
 

@@ -48,7 +48,6 @@ class Principal extends Component {
             qr = (snapshot.val().QRExpositor) || 'SinEscaneo';
             cont = (snapshot.val().Contador) || 0;
             cont = cont + 1;
-            alert(cont);
 
             firebase.database().ref(App + '/Expositores/' + userId + '/Registrados').push({
               Registro: result,
@@ -68,6 +67,7 @@ class Principal extends Component {
     }
     openImageDialog() {
       this.refs.qrReader1.openImageDialog()
+      //<input className='BotonEscanear' type="file" onClick={this.openImageDialog} />
     }
 
 
@@ -88,10 +88,10 @@ class Principal extends Component {
       {<Nav/>}
       <div className='Principal'>
       <img src={QRimagen} className="QRimagen" alt="MizaelDevs" />
-      <div className="div_boton">
+
       <p className='AnuncioRegistrado'>{this.state.result} </p>
-      <input className='BotonEscanear' type="file" onClick={this.openImageDialog} />
-      </div>
+      <a className="boton_personalizado_escanear" onClick={this.openImageDialog}>Escanear</a>
+      
       <div>
 
       </div>
