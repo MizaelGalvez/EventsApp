@@ -38,6 +38,7 @@ class Principal extends Component {
 
             if (result.substring(0,4) === 'Enco' || result.substring(0,4) === 'Expo') {
               var userId = firebase.auth().currentUser.uid;
+              var email = firebase.auth().currentUser.email;
               var cont = 1;
               this.setState({ result: "ID " + result + " Registrado" })
               setTimeout(
@@ -61,6 +62,7 @@ class Principal extends Component {
                   });
                   firebase.database().ref(App + '/Expositores/' + userId ).update({
                     Contador: cont,
+                    Email: email,
                   });
                   swal({
                       title: "ID Registrado",
