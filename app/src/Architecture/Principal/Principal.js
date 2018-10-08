@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import QrReader from 'react-qr-reader';
 import firebase from "firebase";
+import swal from 'sweetalert';
 
 import './Principal.css';
 import QRimagen from './QR.png';
@@ -61,9 +62,24 @@ class Principal extends Component {
                   firebase.database().ref(App + '/Expositores/' + userId ).update({
                     Contador: cont,
                   });
+                  swal({
+                      title: "ID Registrado",
+                      text:  "ID "+ result,
+                      icon: "success",
+                      button: "Siguiente",
+                    });
                 });
+
+
+
             }else {
-              alert("El QR no corrresponde al Evento, Enviar al Registro.  QR escaneado = "+ result);
+              //alert("El QR no corrresponde al Evento, Enviar al Registro.  QR escaneado = "+ result);
+              swal({
+                  title: "QR Erroneo",
+                  text: "El QR no corrresponde al Evento, Enviar al Registro.  QR escaneado = "+ result,
+                  icon: "error",
+                  button: "Siguiente",
+                });
             }
 
 
@@ -77,7 +93,12 @@ class Principal extends Component {
         }
         .bind(this),
         4000);
-
+        swal({
+            title: "Muy Borroso o Brillante",
+            text:  "Escanear Nuevamente ",
+            icon: "warning",
+            button: "Reintentar",
+          });
       }
 
     }

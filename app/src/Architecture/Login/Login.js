@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import firebase from "firebase";
+import swal from 'sweetalert';
 
 import logo from './LogoGrande.png';
 import './Login.css';
@@ -42,7 +43,12 @@ class Login extends Component {
         UserValidation:'active',
       })
     } else {
-      alert('Datos Invalidos');
+      swal({
+          title: "Datos Invalidos",
+          text: "Email o Contraseña no coinciden",
+          icon: "warning",
+          button: "Reintentar o crea tu Cuenta",
+        });
     }
 
 
