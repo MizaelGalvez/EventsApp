@@ -25,12 +25,12 @@ const store = createStore(
   initialState,
 )
 var config = {
-    //apiKey: "ASfdghjkLKJNBhjskdkj_M4fCDGL2bizcD0IRx2tU",
-    //authDomain: "urlproyecto.firebaseapp.com",
-    //databaseURL: "https://urlproyecto.firebaseio.com",
-    //projectId: "nombreproyecto",
-    //storageBucket: "nombreproyecto.appspot.com",
-    //messagingSenderId: "85241684325168541"
+    apiKey: "AIzaSyDsymr6GkvB8t_M4fCDGL2bizcD0IRx2tU",
+    authDomain: "dbs-de-proyectos.firebaseapp.com",
+    databaseURL: "https://dbs-de-proyectos.firebaseio.com",
+    projectId: "dbs-de-proyectos",
+    storageBucket: "dbs-de-proyectos.appspot.com",
+    messagingSenderId: "471214404221"
 }
 
 firebase.initializeApp(config);
