@@ -54,8 +54,10 @@ class Principal extends Component {
         this.setState({ result, registros })
 
       }
-
     }
+
+
+
     handleError(err){
       console.error(err)
     }
