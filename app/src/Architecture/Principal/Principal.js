@@ -19,23 +19,19 @@ class Principal extends Component {
         delay: 100,
         result: '',
         registros: '',
-        Interes: '',
-        ErRor: '',
       }
 
 
       this.handleScan = this.handleScan.bind(this)
       this.openImageDialog = this.openImageDialog.bind(this)
-      this.handleChangeInteres = this.handleChangeInteres.bind(this);
     }
-
-    handleChangeInteres = (event) => this.setState({Interes: event.target.value })
 
 
 
     handleScan(result){
       if(result){
 
+<<<<<<< HEAD
             if (result.substring(0,4) === 'Enco' || result.substring(0,4) === 'Expo') {
               var userId = firebase.auth().currentUser.uid;
               var email = firebase.auth().currentUser.email;
@@ -89,11 +85,18 @@ class Principal extends Component {
       }else {
 
         this.setState({ ErRor: " Escanear Nuevamente imagen borrosa o brillante" })
+=======
+        var userId = firebase.auth().currentUser.uid;
+        var qr = '';
+        var cont = 1;
+        this.setState({ result: result + " Registrado" })
+>>>>>>> parent of 65a9d16... Testeo antes del Evento
         setTimeout(
         function() {
-            this.setState({ErRor: ""});
+            this.setState({result: "" });
         }
         .bind(this),
+<<<<<<< HEAD
         4000);
         swal({
             title: "Muy Borroso o Brillante",
@@ -101,6 +104,28 @@ class Principal extends Component {
             icon: "warning",
             button: "Reintentar",
           });
+=======
+        2000);
+
+
+        var App = this.state.App;
+
+          return firebase.database().ref(App + '/Expositores/' + userId + '/').once('value').then(function(snapshot) {
+            qr = (snapshot.val().QRExpositor) || 'SinEscaneo';
+            cont = (snapshot.val().Contador) || 0;
+            cont = cont + 1;
+
+            firebase.database().ref(App + '/Expositores/' + userId + '/Registrados').push({
+              Registro: result,
+            });
+            firebase.database().ref(App + '/Expositores/' + userId ).update({
+              Contador: cont,
+            });
+
+          });
+
+
+>>>>>>> parent of 65a9d16... Testeo antes del Evento
       }
     }
 
@@ -134,10 +159,8 @@ class Principal extends Component {
       <img src={QRimagen} className="QRimagen" alt="MizaelDevs" />
 
       <p className='AnuncioRegistrado'>{this.state.result} </p>
-      <p className='AnuncioNoRegistrado'>{this.state.ErRor} </p>
-      <input type="text" value={this.state.Interes} onChange={this.handleChangeInteres} required placeholder=" interes en algun producto ?" />
-      <a className="boton_personalizado_escanear" onClick={this.openImageDialog}>Fotografiar QR</a>
-
+      <a className="boton_personalizado_escanear" onClick={this.openImageDialog}>Escanear</a>
+      
       <div>
 
       </div>

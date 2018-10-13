@@ -30,7 +30,8 @@ class Datos extends Component {
           cont = (snapshot.val().Contador) || 0;
         })
 
-      },
+      }
+      .bind(this),
       0);
       setTimeout(
       function() {
