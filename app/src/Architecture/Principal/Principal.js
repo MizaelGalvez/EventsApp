@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import QrReader from 'react-qr-reader';
 import firebase from "firebase";
-import swal from 'sweetalert';
 
 import './Principal.css';
 import QRimagen from './QR.png';
@@ -19,23 +18,25 @@ class Principal extends Component {
         delay: 100,
         result: '',
         registros: '',
+        Interes: '',
+        ErRor: '',
       }
 
 
       this.handleScan = this.handleScan.bind(this)
       this.openImageDialog = this.openImageDialog.bind(this)
+      this.handleChangeInteres = this.handleChangeInteres.bind(this);
     }
+
+    handleChangeInteres = (event) => this.setState({Interes: event.target.value })
 
 
 
     handleScan(result){
       if(result){
 
-<<<<<<< HEAD
-<<<<<<< HEAD
             if (result.substring(0,4) === 'Enco' || result.substring(0,4) === 'Expo') {
               var userId = firebase.auth().currentUser.uid;
-              var email = firebase.auth().currentUser.email;
               var cont = 1;
               this.setState({ result: "ID " + result + " Registrado" })
               setTimeout(
@@ -59,26 +60,10 @@ class Principal extends Component {
                   });
                   firebase.database().ref(App + '/Expositores/' + userId ).update({
                     Contador: cont,
-                    Email: email,
                   });
-                  swal({
-                      title: "ID Registrado",
-                      text:  "ID "+ result,
-                      icon: "success",
-                      button: "Siguiente",
-                    });
                 });
-
-
-
             }else {
-              //alert("El QR no corrresponde al Evento, Enviar al Registro.  QR escaneado = "+ result);
-              swal({
-                  title: "QR Erroneo",
-                  text: "El QR no corrresponde al Evento, Enviar al Registro.  QR escaneado = "+ result,
-                  icon: "error",
-                  button: "Siguiente",
-                });
+              alert("El QR no corrresponde al Evento, Enviar al Registro.  QR escaneado = "+ result);
             }
 
 
@@ -86,74 +71,16 @@ class Principal extends Component {
       }else {
 
         this.setState({ ErRor: " Escanear Nuevamente imagen borrosa o brillante" })
-=======
->>>>>>> parent of 65a9d16... Testeo antes del Evento
-        var userId = firebase.auth().currentUser.uid;
-        var qr = '';
-        var cont = 1;
-        this.setState({ result: result + " Registrado" })
-<<<<<<< HEAD
->>>>>>> parent of 65a9d16... Testeo antes del Evento
-=======
->>>>>>> parent of 65a9d16... Testeo antes del Evento
         setTimeout(
         function() {
-            this.setState({result: "" });
+            this.setState({ErRor: ""});
         }
         .bind(this),
-<<<<<<< HEAD
-<<<<<<< HEAD
         4000);
-        swal({
-            title: "Muy Borroso o Brillante",
-            text:  "Escanear Nuevamente ",
-            icon: "warning",
-            button: "Reintentar",
-          });
 
-
-        var App = this.state.App;
-
-          return firebase.database().ref(App + '/Expositores/' + userId + '/').once('value').then(function(snapshot) {
-            qr = (snapshot.val().QRExpositor) || 'SinEscaneo';
-            cont = (snapshot.val().Contador) || 0;
-            cont = cont + 1;
-
-            firebase.database().ref(App + '/Expositores/' + userId + '/Registrados').push({
-              Registro: result,
-            });
-            firebase.database().ref(App + '/Expositores/' + userId ).update({
-              Contador: cont,
-            });
-
-          });
-
->>>>>>> parent of 65a9d16... Testeo antes del Evento
-
-
-        var App = this.state.App;
-
-          return firebase.database().ref(App + '/Expositores/' + userId + '/').once('value').then(function(snapshot) {
-            qr = (snapshot.val().QRExpositor) || 'SinEscaneo';
-            cont = (snapshot.val().Contador) || 0;
-            cont = cont + 1;
-
-            firebase.database().ref(App + '/Expositores/' + userId + '/Registrados').push({
-              Registro: result,
-            });
-            firebase.database().ref(App + '/Expositores/' + userId ).update({
-              Contador: cont,
-            });
-
-          });
-
-
->>>>>>> parent of 65a9d16... Testeo antes del Evento
       }
+
     }
-
-
-
     handleError(err){
       console.error(err)
     }
@@ -182,7 +109,9 @@ class Principal extends Component {
       <img src={QRimagen} className="QRimagen" alt="MizaelDevs" />
 
       <p className='AnuncioRegistrado'>{this.state.result} </p>
-      <a className="boton_personalizado_escanear" onClick={this.openImageDialog}>Escanear</a>
+      <p className='AnuncioNoRegistrado'>{this.state.ErRor} </p>
+      <input type="text" value={this.state.Interes} onChange={this.handleChangeInteres} required placeholder=" interes en algun producto ?" />
+      <a className="boton_personalizado_escanear" onClick={this.openImageDialog}>Fotografiar QR</a>
 
       <div>
 

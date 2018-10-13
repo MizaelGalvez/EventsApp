@@ -25,11 +25,9 @@ class Navegacion extends Component {
 
 
   render() {
-    var Email = firebase.auth().currentUser.email;
     return (
       <div className="Navegacion">
         <img src={logo} className="Navegacion-logo" alt="logo" />
-        <p className="Email">{Email}</p>
         <a className="Navegacion-title" onClick={this.CerrarSesion}>Cerrar Sesion</a>
       </div>
     );

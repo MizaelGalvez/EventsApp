@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import firebase from "firebase";
 import QrReader from 'react-qr-reader';
-import swal from 'sweetalert';
 
 import logo from './LogoGrande.png';
 import './Registro.css';
@@ -44,49 +43,6 @@ class Registro extends Component {
 
     if (this.state.result !== "") {
       if (password !== "" && password === confirmarPassword) {
-<<<<<<< HEAD
-        if (password.length >= 6) {
-                firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-                // Handle Errors here.
-                //  var errorCode = error.code;
-                //var errorMessage = error.message;
-                ErrorCrear = true;
-                // ...
-                //alert('el error es : ' + error);
-                swal({
-                    title: "Algo ocurrio :(",
-                    text: error,
-                    icon: "error",
-                    button: "Reintentar",
-                  });
-              }).then(function(){
-
-                if (ErrorCrear === false) {
-
-                  firebase.auth().onAuthStateChanged(function(user) {
-                  if (user) {
-                    // User is signed in.
-                    var uid = user.uid;
-                    // ...
-                  } else {
-                    // User is signed out.
-                    // ...
-                  }
-
-                  if (uid) {
-
-                      firebase.database().ref(App + '/Expositores/' + uid + '/').set({
-                        QRExpositor: result,
-                        Contador: 0,
-                      });
-                      console.log(uid);
-                      console.log(result);
-
-                  }
-
-                  });
-                }
-=======
 
         firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
@@ -97,18 +53,12 @@ class Registro extends Component {
         alert('el error es : ' + error);
       }).then(function(){
 
-        if (ErrorCrear == false) {
+        if (ErrorCrear === false) {
 
           firebase.auth().onAuthStateChanged(function(user) {
           if (user) {
             // User is signed in.
-            var displayName = user.displayName;
-            var email = user.email;
-            var emailVerified = user.emailVerified;
-            var photoURL = user.photoURL;
-            var isAnonymous = user.isAnonymous;
             var uid = user.uid;
-            var providerData = user.providerData;
             // ...
           } else {
             // User is signed out.
@@ -120,46 +70,29 @@ class Registro extends Component {
               firebase.database().ref(App + '/Expositores/' + uid + '/').set({
                 QRExpositor: result,
                 Contador: 0,
->>>>>>> parent of 65a9d16... Testeo antes del Evento
               });
+              console.log(uid);
+              console.log(result);
 
-              swal({
-                  title: "Registrado !!!",
-                  text: "Email y QR registrado",
-                  icon: "success",
-                  button: "Iniciar Sesion",
-                });
+          }
 
-              this.enviarLogin();
+          });
 
-        }else {
-          swal({
-              title: "Contraseña Invalida",
-              text: "La Contraseña deve contener almenos 6 caracteres",
-              icon: "error",
-              button: "Re-escribir",
-            });
+
+
         }
 
 
+      });
+
+      this.enviarLogin();
+
 
       }else {
-        //alert('Contraseñas no Coinciden');
-        swal({
-            title: "Un Momento !!",
-            text: "Las Contraseñas no Coinciden",
-            icon: "warning",
-            button: "re-escribir",
-          });
+        alert('Contraseñas no Coinciden');
       }
     }else {
-      swal({
-          title: "Escanee el QR",
-          text: "es necesario para el registro",
-          icon: "warning",
-          button: "Escanear",
-        });
-      //alert('Es requerido el escanear el QR');
+      alert('Es requerido el escanear el QR');
     }
 
 
