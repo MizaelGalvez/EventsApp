@@ -9,6 +9,24 @@
   margin: 0px;
   padding-bottom: 30px;
 }
+.AnuncioRegistrado {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  color: #559428;
+  margin-left: 15px;
+  font-weight: bold;
+}
+.AnuncioNoRegistrado {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  color: red;
+  font-weight: bold;
+  margin-left: 15px;
+}
 
 .QRimagen {
   animation: esperar 1s;
@@ -29,6 +47,8 @@
 
 .qrimage {
   visibility: hidden;
+  height: 0px;
+  width: 0px;
 }
 
 .BotonEscanear {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import QrReader from 'react-qr-reader';
 import firebase from "firebase";
+import swal from 'sweetalert';
 
 import './Principal.css';
 import QRimagen from './QR.png';
@@ -17,42 +18,89 @@ class Principal extends Component {
         QRExpositor: '',
         delay: 100,
         result: '',
-        registros: 0,
+        registros: '',
+        Interes: '',
+        ErRor: '',
       }
 
 
       this.handleScan = this.handleScan.bind(this)
       this.openImageDialog = this.openImageDialog.bind(this)
+      this.handleChangeInteres = this.handleChangeInteres.bind(this);
     }
+
+    handleChangeInteres = (event) => this.setState({Interes: event.target.value })
+
+
+
     handleScan(result){
       if(result){
-        var registros = this.state.registros + 1;
+
+            if (result.substring(0,4) === 'Enco' || result.substring(0,4) === 'Expo') {
+              var userId = firebase.auth().currentUser.uid;
+              var email = firebase.auth().currentUser.email;
+              var cont = 1;
+              this.setState({ result: "ID " + result + " Registrado" })
+              setTimeout(
+              function() {
+                  this.setState({result: "",
+                                Interes: "",});
+              }
+              .bind(this),
+              2000);
+
+              var interes = this.state.Interes;
+              var App = this.state.App;
+
+                return firebase.database().ref(App + '/Expositores/' + userId + '/').once('value').then(function(snapshot) {
+                  cont = (snapshot.val().Contador) || 0;
+                  cont = cont + 1;
+
+                  firebase.database().ref(App + '/Expositores/' + userId + '/Registrados').push({
+                    Registro: result,
+                    Interes: interes,
+                  });
+                  firebase.database().ref(App + '/Expositores/' + userId ).update({
+                    Contador: cont,
+                    Email: email,
+                  });
+                  swal({
+                      title: "ID Registrado",
+                      text:  "ID "+ result,
+                      icon: "success",
+                      button: "Siguiente",
+                    });
+                });
 
 
-        var App = this.state.App;
 
-        var userId = firebase.auth().currentUser.uid;
-          return firebase.database().ref(App + '/Expositores/' + userId + '/').once('value').then(function(snapshot) {
-          var qr = (snapshot.val().QRExpositor) || 'SinEscaneo';
-          var cont = (snapshot.val().Contador) || 0;
+            }else {
+              //alert("El QR no corrresponde al Evento, Enviar al Registro.  QR escaneado = "+ result);
+              swal({
+                  title: "QR Erroneo",
+                  text: "El QR no corrresponde al Evento, Enviar al Registro.  QR escaneado = "+ result,
+                  icon: "error",
+                  button: "Siguiente",
+                });
+            }
 
 
-          firebase.database().ref(App + '/Expositores/' + userId + '/Registrados').push({
-            Registro: result,
+
+      }else {
+
+        this.setState({ ErRor: " Escanear Nuevamente imagen borrosa o brillante" })
+        setTimeout(
+        function() {
+            this.setState({ErRor: ""});
+        }
+        .bind(this),
+        4000);
+        swal({
+            title: "Muy Borroso o Brillante",
+            text:  "Escanear Nuevamente ",
+            icon: "warning",
+            button: "Reintentar",
           });
-          cont = cont + 1;
-          firebase.database().ref(App + '/Expositores/' + userId ).update({
-
-            Contador: cont,
-          });
-
-          registros = cont;
-
-
-        });
-
-        this.setState({ result, registros })
-
       }
     }
 
@@ -63,7 +111,10 @@ class Principal extends Component {
     }
     openImageDialog() {
       this.refs.qrReader1.openImageDialog()
+      //<input className='BotonEscanear' type="file" onClick={this.openImageDialog} />
     }
+
+
 
   ActualizarDato = (event) => {
     this.props.dispatch({
@@ -81,14 +132,15 @@ class Principal extends Component {
       {<Nav/>}
       <div className='Principal'>
       <img src={QRimagen} className="QRimagen" alt="MizaelDevs" />
-      <div className="div_boton">
-      <p className='Cantidades'>{this.state.result}</p>
-      <input className='BotonEscanear' type="file" onClick={this.openImageDialog} />
-      </div>
+
+      <p className='AnuncioRegistrado'>{this.state.result} </p>
+      <p className='AnuncioNoRegistrado'>{this.state.ErRor} </p>
+      <input type="text" value={this.state.Interes} onChange={this.handleChangeInteres} required placeholder=" interes en algun producto ?" />
+      <a className="boton_personalizado_escanear" onClick={this.openImageDialog}>Fotografiar QR</a>
+
       <div>
 
       </div>
-      <h3 className='h3'>Registros Asistentes : <p className='Cantidades'>{this.state.registros}</p></h3>
       <h2 className='BottonDatos' onClick={this.ActualizarDato} >Consultar Datos</h2>
       <div></div>
       </div>

@@ -77,7 +77,29 @@
   border: 2px solid #7BE330;
 }
 
+
 .Login-crearCuenta {
   font-family: sans-serif;
   color: #fffffa;
+}
+
+.boton_personalizado_escanear{
+  cursor: pointer;
+  color: #111111;
+  border-radius: 10px;
+  margin-top: 15px;
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px;
+  font-weight: 600;
+  font-size: 20px;
+  background-color: #7BE330;
+  border-radius: 6px;
+  border: 2px solid #7BE330;
+}
+.boton_personalizado_escanear:hover{
+  cursor: pointer;
+  color: #111111;
+  background-color: #99E310;
+  border: 2px solid #7BE330;
 }
