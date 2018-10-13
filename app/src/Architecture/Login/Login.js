@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import firebase from "firebase";
+import swal from 'sweetalert';
 
 import logo from './LogoGrande.png';
 import './Login.css';
@@ -33,17 +34,28 @@ class Login extends Component {
     //alert('el error es : ' + error);
     })
 
+    setTimeout(
+    function() {
+      var user = firebase.auth().currentUser;
 
-    var user = firebase.auth().currentUser;
-
-    if (user) {
-      this.props.dispatch({
-        type: 'Usuario_Accion',
-        UserValidation:'active',
-      })
-    } else {
-      alert('Datos Invalidos');
+      if (user) {
+        this.props.dispatch({
+          type: 'Usuario_Accion',
+          UserValidation:'active',
+        })
+      } else {
+        swal({
+            title: "Datos Invalidos",
+            text: "Email o Contraseña no coinciden",
+            icon: "warning",
+            button: "Reintentar o crea tu Cuenta",
+          });
+      }
     }
+    .bind(this),
+    1000);
+
+
 
 
   }

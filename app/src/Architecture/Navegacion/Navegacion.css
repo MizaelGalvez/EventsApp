@@ -10,6 +10,10 @@ div.Navegacion {
   height: 20px;
   padding: 10px;
 }
+.Email {
+  font-weight: bold;
+  font-size: 0.6em;
+}
 
 .Navegacion-title {
   font-size: 0.6em;
