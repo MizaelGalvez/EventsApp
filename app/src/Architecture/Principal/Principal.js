@@ -32,6 +32,7 @@ class Principal extends Component {
       if(result){
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             if (result.substring(0,4) === 'Enco' || result.substring(0,4) === 'Expo') {
               var userId = firebase.auth().currentUser.uid;
               var email = firebase.auth().currentUser.email;
@@ -86,16 +87,22 @@ class Principal extends Component {
 
         this.setState({ ErRor: " Escanear Nuevamente imagen borrosa o brillante" })
 =======
+=======
+>>>>>>> parent of 65a9d16... Testeo antes del Evento
         var userId = firebase.auth().currentUser.uid;
         var qr = '';
         var cont = 1;
         this.setState({ result: result + " Registrado" })
+<<<<<<< HEAD
+>>>>>>> parent of 65a9d16... Testeo antes del Evento
+=======
 >>>>>>> parent of 65a9d16... Testeo antes del Evento
         setTimeout(
         function() {
             this.setState({result: "" });
         }
         .bind(this),
+<<<<<<< HEAD
 <<<<<<< HEAD
         4000);
         swal({
@@ -106,6 +113,27 @@ class Principal extends Component {
           });
 =======
         2000);
+=======
+        2000);
+
+
+        var App = this.state.App;
+
+          return firebase.database().ref(App + '/Expositores/' + userId + '/').once('value').then(function(snapshot) {
+            qr = (snapshot.val().QRExpositor) || 'SinEscaneo';
+            cont = (snapshot.val().Contador) || 0;
+            cont = cont + 1;
+
+            firebase.database().ref(App + '/Expositores/' + userId + '/Registrados').push({
+              Registro: result,
+            });
+            firebase.database().ref(App + '/Expositores/' + userId ).update({
+              Contador: cont,
+            });
+
+          });
+
+>>>>>>> parent of 65a9d16... Testeo antes del Evento
 
 
         var App = this.state.App;
