@@ -87,7 +87,6 @@ class Principal extends Component {
 
         this.setState({ ErRor: " Escanear Nuevamente imagen borrosa o brillante" })
 =======
-=======
 >>>>>>> parent of 65a9d16... Testeo antes del Evento
         var userId = firebase.auth().currentUser.uid;
         var qr = '';
@@ -111,10 +110,6 @@ class Principal extends Component {
             icon: "warning",
             button: "Reintentar",
           });
-=======
-        2000);
-=======
-        2000);
 
 
         var App = this.state.App;
@@ -188,7 +183,7 @@ class Principal extends Component {
 
       <p className='AnuncioRegistrado'>{this.state.result} </p>
       <a className="boton_personalizado_escanear" onClick={this.openImageDialog}>Escanear</a>
-      
+
       <div>
 
       </div>
